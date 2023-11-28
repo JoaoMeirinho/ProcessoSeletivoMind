@@ -12,7 +12,7 @@ interface cadastroBody extends loginBody {
 
 const SECRET = process.env.JWT_SECRET;
 
-function createToken(user: cadastroBody) {
+function createToken(user: any) {
   return jwt.sign({ email: user.email, nome: user.nome }, SECRET);
 }
 
@@ -36,11 +36,15 @@ export async function cadastro(req: any) {
   return Usuario.create(reqJson);
 }
 
-export function login(body: loginBody) {
-  const user = users.find(({ email }) => email === body.email);
+export async function login(req: any) {
+  const reqJson = JSON.parse(req.body);
+  const user = await Usuario.findOne({ where: { email: reqJson.email } });
   if (!user) throw new Error("Usuário não encontrado");
-  if (user.password !== body.password) throw new Error("Senha incorreta");
+  if (!user.passwordIsValid(reqJson.password))
+    throw new Error("Senha incorreta");
 
-  const token = createToken(user);
+  const { nome, email, password_hash } = user;
+
+  const token = createToken({ nome, email, password_hash });
   return token;
 }
