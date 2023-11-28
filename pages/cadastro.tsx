@@ -48,7 +48,7 @@ export default function CadastroPage() {
             required
             value={formData.nome}
             onChange={(e) => {
-              handleFormEdit(e, "name");
+              handleFormEdit(e, "nome");
             }}
           />
           <Input

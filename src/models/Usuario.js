@@ -1,4 +1,4 @@
-import Sequelize, { Model } from "sequelize";
+import { Sequelize, Model } from "sequelize";
 import bcryptjs from "bcryptjs";
 import { connection } from "../../services/database/dbConnection";
 
@@ -28,7 +28,6 @@ Usuario.init(
     },
     password_hash: {
       type: Sequelize.STRING,
-      allowNull: false,
     },
     password: {
       type: Sequelize.VIRTUAL,
@@ -36,17 +35,16 @@ Usuario.init(
     },
   },
   {
-    connection,
+    sequelize: connection,
     modelName: "Usuario",
-    tableName: "usuarios",
+    tableName: 'usuario',
   }
 );
 
 Usuario.beforeSave(async (user) => {
   if (user.password) {
-    user.password_hash = await bcryptjs.hash(
-      user.password,
-      process.env.BCRYPT_HASH
-    );
+    user.password_hash = await bcryptjs.hash(user.password, 8);
   }
 });
+
+await Usuario.sync();

@@ -7,9 +7,9 @@ export default async function handler(
   res: NextApiResponse
 ) {
   try {
-    const newUser = await Usuario.create(req.body);
-    // const { id, nome, email } = newUser;
-    res.status(201);
+    const newUser = await cadastro(req);
+    const { nome, email, password_hash } = newUser;
+    res.status(201).json({ nome, email, password_hash });
   } catch (err: any) {
     res.status(400).json(err.message);
   }

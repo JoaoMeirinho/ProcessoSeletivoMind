@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken";
+import Usuario from "../src/models/Usuario";
 
 let users: Array<cadastroBody> = [];
 interface loginBody {
@@ -27,14 +28,12 @@ export function verifica(token) {
   return readToken(token);
 }
 
-export function cadastro(body: cadastroBody) {
-  const user = users.find(({ email }) => email === body.email);
+export async function cadastro(req: any) {
+  const reqJson = JSON.parse(req.body);
+  const user = await Usuario.findOne({ where: { email: reqJson.email } });
   if (user) throw new Error("Usuário já cadastrado");
 
-  users.push(body);
-
-  const token = createToken(body);
-  return token;
+  return Usuario.create(reqJson);
 }
 
 export function login(body: loginBody) {
