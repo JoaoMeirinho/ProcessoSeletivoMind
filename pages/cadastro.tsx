@@ -11,7 +11,7 @@ import Button from "../src/components/button/button";
 
 export default function CadastroPage() {
   const [formData, setFormData] = useState({
-    name: "",
+    nome: "",
     email: "",
     password: "",
   });
@@ -32,7 +32,6 @@ export default function CadastroPage() {
       });
       const json = await response.json();
       if (response.status !== 201) throw new Error(json);
-      setCookie("authorization", json);
       router.push("/login");
     } catch (err) {
       setError(err.message);
@@ -47,7 +46,7 @@ export default function CadastroPage() {
             type="text"
             placeholder="Seu nome"
             required
-            value={formData.name}
+            value={formData.nome}
             onChange={(e) => {
               handleFormEdit(e, "name");
             }}

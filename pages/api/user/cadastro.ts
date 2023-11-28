@@ -1,11 +1,15 @@
-import Error from "next/error";
+import Usuario from "../../../src/models/Usuario";
 import { cadastro } from "../../../services/user";
 import { NextApiRequest, NextApiResponse } from "next";
 
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   try {
-    const newUser = cadastro(req.body);
-    res.status(201).json(newUser);
+    const newUser = await Usuario.create(req.body);
+    // const { id, nome, email } = newUser;
+    res.status(201);
   } catch (err: any) {
     res.status(400).json(err.message);
   }
