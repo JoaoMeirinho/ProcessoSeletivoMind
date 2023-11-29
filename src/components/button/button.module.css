@@ -8,3 +8,7 @@
   border-radius: 10px;
   cursor: pointer;
 }
+
+.button:hover{
+  background-color: rgb(149, 73, 220);
+}

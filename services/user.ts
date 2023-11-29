@@ -1,7 +1,6 @@
 import jwt from "jsonwebtoken";
 import Usuario from "../src/models/Usuario";
 
-let users: Array<cadastroBody> = [];
 interface loginBody {
   email: string;
   password: string;
