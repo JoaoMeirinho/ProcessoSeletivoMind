@@ -1,9 +1,11 @@
 .background {
-  background-color: #000;
+  background-color: #aa90ff;
   min-height: 100vh;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 25px;
 }
 
 .form {
