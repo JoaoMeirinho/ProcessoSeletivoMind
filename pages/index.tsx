@@ -1,38 +1,49 @@
 import { getCookie } from "cookies-next";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { verifica } from "../services/user";
 
+import styles from "../styles/Login.module.css";
+
+import CursoCard from "../src/components/cursoCard/cursoCard";
+import Input from "../src/components/input/input";
+import Button from "../src/components/button/button";
+import Link from "next/link";
 export default function Home() {
+  const [cursoData, setCursoData] = useState([]);
+
+  const cursos = async () => {};
+
+  useEffect(() => {
+    (async () => {
+      const res = await fetch("/api/curso/getCurso", {
+        method: "GET",
+      });
+      const cursos = await res.json();
+      // console.log();
+      setCursoData(cursos);
+    })();
+    console.log("request feito");
+  }, []);
+
   return (
-    <div>
-      <div className={styles.background}>
-        <LoginCard title="Entre em sua conta">
-          <form onSubmit={handleForm} action="" className={styles.form}>
-            <Input
-              type="email"
-              placeholder="Seu e-mail"
-              required
-              value={formData.email}
-              onChange={(e) => {
-                handleFormEdit(e, "email");
-              }}
-            />
-            <Input
-              type="password"
-              placeholder="Sua senha"
-              required
-              value={formData.password}
-              onChange={(e) => {
-                handleFormEdit(e, "password");
-              }}
-            />
-            <Button>Entrar</Button>
-            {error && <p className={styles.error}>{error}</p>}
-            <Link href="/cadastro"> Ainda não possui conta?</Link>
-          </form>
-        </LoginCard>
+    <>
+      <div className={styles.nav}>
+        <Link className={styles.link} href="/curso">
+          Adicionar curso
+        </Link>
       </div>
-    </div>
+      <div className={styles.background}>
+        {cursoData.map((item) => (
+          <CursoCard
+            id={item.id}
+            nome={item.nome}
+            professorResponsavel={item.professor_responsavel}
+            categoria={item.categoria}
+            descricao={item.descricao}
+          />
+        ))}
+      </div>
+    </>
   );
 }
 

@@ -1,5 +1,5 @@
 .background {
-  background-color: #ffffff;
+  background-color: #000;
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -15,4 +15,18 @@
 .error {
   color: red;
   font-weight: bold;
+}
+
+.nav {
+  background-color: #fff;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.link {
+  padding: 10px;
+  background-color: blueviolet;
+  border-radius: 5px;
 }

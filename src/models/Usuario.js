@@ -10,6 +10,11 @@ export default class Usuario extends Model {
 
 Usuario.init(
   {
+    id: {
+      type: Sequelize.NUMERIC,
+      autoIncrement: true,
+      primaryKey: true
+    },
     nome: {
       type: Sequelize.STRING,
       allowNull: false,

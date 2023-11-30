@@ -1,6 +1,6 @@
 import Sequelize from "sequelize";
 import databaseConfig from "./config/databaseConfig";
-import Usuario from "../../src/models/Usuario";
+// import Usuario from "../../src/models/Usuario";
 
 export const connection = new Sequelize(databaseConfig);
 // export const connection = new Sequelize(db, user, pass, {
