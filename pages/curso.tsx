@@ -9,11 +9,11 @@ import LoginCard from "../src/components/loginCard/loginCard";
 import Input from "../src/components/input/input";
 import Button from "../src/components/button/button";
 
-export default function CadastroPage() {
+export default function CursoPage() {
   const [formData, setFormData] = useState({
     nome: "",
-    professor: "",
-    categoria: "",
+    professor_responsavel: "",
+    categoria: "Marketing",
     descricao: "",
     imagem: "",
   });
@@ -28,13 +28,13 @@ export default function CadastroPage() {
   const handleForm = async (event) => {
     try {
       event.preventDefault();
-      const response = await fetch("/api/user/cadastro", {
+      const response = await fetch("/api/curso/createCurso", {
         method: "POST",
         body: JSON.stringify(formData),
       });
       const json = await response.json();
       if (response.status !== 201) throw new Error(json);
-      router.push("/login");
+      router.push("/");
     } catch (err) {
       setError(err.message);
     }
@@ -47,7 +47,6 @@ export default function CadastroPage() {
           <Input
             type="text"
             placeholder="Nome do curso"
-            required
             value={formData.nome}
             onChange={(e) => {
               handleFormEdit(e, "nome");
@@ -57,9 +56,9 @@ export default function CadastroPage() {
             type="text"
             placeholder="Professor responsável pelo curso"
             required
-            value={formData.professor}
+            value={formData.professor_responsavel}
             onChange={(e) => {
-              handleFormEdit(e, "professor");
+              handleFormEdit(e, "professor_responsavel");
             }}
           />
           <Input
@@ -72,12 +71,15 @@ export default function CadastroPage() {
             }}
           />
           <select
-            value={formData.categoria}
+            value={formData.categoria === "" ? null : formData.categoria}
             onChange={(e) => {
               handleFormEdit(e, "categoria");
             }}
+            required
           >
-            <option value="Marketing">Marketing</option>
+            <option selected value="Marketing">
+              Marketing
+            </option>
             <option value="TI">TI</option>
             <option value="Estatística">Estatística</option>
             <option value="Artes">Artes</option>
@@ -94,7 +96,6 @@ export default function CadastroPage() {
 
           <Button>Cadastrar curso</Button>
           {error && <p className={styles.error}>{error}</p>}
-          <Link href="/login">Já possui uma conta?</Link>
         </form>
       </LoginCard>
     </div>

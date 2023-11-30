@@ -8,7 +8,11 @@ export default async function handler(
 ) {
   try {
     const newCurso = await createCurso(req);
-    res.status(201).json({...newCurso});
+    const { nome, professor_responsavel, categoria, descricao, imagem } =
+      newCurso;
+    res
+      .status(201)
+      .json({ nome, professor_responsavel, categoria, descricao, imagem });
   } catch (err: any) {
     res.status(400).json(err.message);
   }

@@ -13,23 +13,53 @@ Curso.init(
     nome: {
       type: Sequelize.STRING,
       allowNull: false,
+      validate:  {
+        notEmpty: {
+          args: true,
+          msg: "O nome do curso deve ser fornecido",
+        },
+      },
     },
     professor_responsavel: {
       type: Sequelize.STRING,
       allowNull: false,
+      validate:  {
+        notEmpty: {
+          args: true,
+          msg: "O nome de um professor deve ser fornecido",
+        },
+      },
     },
     categoria: {
       type: Sequelize.STRING,
       allowNull: false,
+      validate:  {
+        notEmpty: {
+          args: true,
+          msg: "Uma categoria deve ser fornecida",
+        },
+      },
     },
     descricao: {
       type: Sequelize.STRING,
       allowNull: false,
+      validate:  {
+        notEmpty: {
+          args: true,
+          msg: "Uma descrição deve ser fornecida",
+        },
+      },
     },
     imagem: {
       type: Sequelize.STRING,
       allowNull: false,
-    }
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: "Uma imagem deve ser fornecida",
+        },
+      },
+    },
   },
   {
     sequelize: connection,
