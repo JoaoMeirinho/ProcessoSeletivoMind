@@ -11,3 +11,10 @@
 .title {
   text-align: center;
 }
+
+.delete-curso {
+  padding: 10px;
+  background-color: blueviolet;
+  color: #000;
+  border: none;
+}

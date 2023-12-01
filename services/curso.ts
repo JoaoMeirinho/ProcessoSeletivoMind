@@ -28,6 +28,18 @@ export async function updateCurso(req: any) {
         },
       }
     );
+    return reqJson;
   }
-  return reqJson;
+}
+
+export async function deleteCurso(req: any) {
+  const reqJson = JSON.parse(req.body);
+  if (!(JSON.stringify(reqJson) === "{}")) {
+    await Curso.destroy({
+      where: {
+        id: reqJson.id,
+      },
+    });
+    return reqJson;
+  }
 }
