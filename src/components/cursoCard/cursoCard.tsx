@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import styles from "./cursoCard.module.css";
+import Link from "next/link";
 
 // interface props {
 //   title: string;
@@ -13,6 +14,12 @@ export default function CursoCard({ id, nome, professorResponsavel, categoria, d
       <p>{descricao}</p>
       <span>{categoria}</span>
       <p>Professor: {professorResponsavel}</p>
+      <Link href={{
+       pathname: `/curso`,
+       query: {
+        id: id,
+       }
+      }}>Editar Curso</Link>
     </div>
   );
 }

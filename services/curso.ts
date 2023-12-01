@@ -7,7 +7,13 @@ export async function createCurso(req: any) {
 }
 
 export async function getCurso(req: any) {
-  // const reqJson = JSON.parse(req.body);
-  const cursos = await Curso.findAll();
+  let cursos;
+  const params = req.query;
+  if (!(JSON.stringify(params) === "{}")) {
+    cursos = await Curso.findByPk(params.id);
+    return cursos;
+  }
+
+  cursos = await Curso.findAll();
   return cursos;
 }
