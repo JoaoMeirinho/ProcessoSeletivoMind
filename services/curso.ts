@@ -13,7 +13,21 @@ export async function getCurso(req: any) {
     cursos = await Curso.findByPk(params.id);
     return cursos;
   }
-
   cursos = await Curso.findAll();
   return cursos;
+}
+
+export async function updateCurso(req: any) {
+  const reqJson = JSON.parse(req.body);
+  if (!(JSON.stringify(reqJson) === "{}")) {
+    await Curso.update(
+      { ...reqJson },
+      {
+        where: {
+          id: reqJson.id,
+        },
+      }
+    );
+  }
+  return reqJson;
 }

@@ -6,6 +6,8 @@
   justify-content: space-around;
   flex-wrap: wrap;
   gap: 25px;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 .form {

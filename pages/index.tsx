@@ -6,12 +6,12 @@ import styles from "../styles/Login.module.css";
 
 import CursoCard from "../src/components/cursoCard/cursoCard";
 import Input from "../src/components/input/input";
-import Button from "../src/components/button/button";
+import SearchBar from "../src/components/searchBar/searchBar";
 import Link from "next/link";
 export default function Home() {
   const [cursoData, setCursoData] = useState([]);
 
-  const cursos = async () => {};
+  const [query, setQuery] = useState("");
 
   useEffect(() => {
     (async () => {
@@ -31,17 +31,29 @@ export default function Home() {
         <Link className={styles.link} href="/curso">
           Adicionar curso
         </Link>
+        <SearchBar
+          placeholder="Pesquisar"
+          onChange={(event) => setQuery(event.target.value)}
+        />
       </div>
       <div className={styles.background}>
-        {cursoData.map((item) => (
-          <CursoCard
-            id={item.id}
-            nome={item.nome}
-            professorResponsavel={item.professor_responsavel}
-            categoria={item.categoria}
-            descricao={item.descricao}
-          />
-        ))}
+        {cursoData
+          .filter((curso) => {
+            if (query === "") {
+              return curso;
+            } else if (curso.nome.toLowerCase().includes(query.toLowerCase())) {
+              return curso;
+            }
+          })
+          .map((item) => (
+            <CursoCard
+              id={item.id}
+              nome={item.nome}
+              professorResponsavel={item.professor_responsavel}
+              categoria={item.categoria}
+              descricao={item.descricao}
+            />
+          ))}
       </div>
     </>
   );

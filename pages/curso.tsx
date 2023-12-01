@@ -56,10 +56,21 @@ export default function CursoPage() {
   const handleForm = async (event) => {
     try {
       event.preventDefault();
-      const response = await fetch("/api/curso/createCurso", {
-        method: "POST",
-        body: JSON.stringify(formData),
-      });
+      let response;
+      if (id) {
+        response = await fetch("/api/curso/updateCurso", {
+          method: "POST",
+          body: JSON.stringify({
+            id: id,
+            ...formData,
+          }),
+        });
+      } else {
+        response = await fetch("/api/curso/createCurso", {
+          method: "POST",
+          body: JSON.stringify(formData),
+        });
+      }
       const json = await response.json();
       if (response.status !== 201) throw new Error(json);
       router.push("/");
@@ -114,7 +125,6 @@ export default function CursoPage() {
             style={{ display: "none" }}
             type="file"
             placeholder="Selecione uma imagem que represente o curso"
-            required
             value={undefined}
             onChange={(e) => {
               handleFormEdit(e, "imagem");
@@ -124,6 +134,7 @@ export default function CursoPage() {
           <Input
             type="text"
             disabled
+            required
             value={formData.imagem || "Nenhum arquivo foi selecionado"}
             // onChange={(e) => {
             //   handleFormEdit(e, "imagem");
@@ -133,7 +144,9 @@ export default function CursoPage() {
           <button
             type="button"
             className="fileButton"
-            onClick={(e) => document.querySelector("input[type=file]").click()}
+            onClick={(e) => {
+              document.querySelector("input[type=file]").click();
+            }}
           >
             Escolher Imagem
           </button>
