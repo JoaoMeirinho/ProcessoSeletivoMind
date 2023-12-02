@@ -8,22 +8,42 @@ import CursoCard from "../src/components/cursoCard/cursoCard";
 import Input from "../src/components/input/input";
 import SearchBar from "../src/components/searchBar/searchBar";
 import Link from "next/link";
+import { useRouter } from "next/router";
 export default function Home() {
   const [cursoData, setCursoData] = useState([]);
-
+  const router = useRouter();
   const [query, setQuery] = useState("");
+
+  const getCursos = async () => {
+    const res = await fetch("/api/curso/getCurso", {
+      method: "GET",
+    });
+    const cursos = await res.json();
+    // console.log();
+    setCursoData(cursos);
+  };
 
   useEffect(() => {
     (async () => {
-      const res = await fetch("/api/curso/getCurso", {
-        method: "GET",
-      });
-      const cursos = await res.json();
-      // console.log();
-      setCursoData(cursos);
+      await getCursos();
     })();
     console.log("request feito");
   }, []);
+
+  const deleteCurso = async (event, id) => {
+    try {
+      event.preventDefault();
+      const response = await fetch("/api/curso/deleteCurso", {
+        method: "POST",
+        body: JSON.stringify({ id: id }),
+      });
+      const json = await response.json();
+      if (response.status !== 201) throw new Error(json);
+      await getCursos();
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <>
@@ -52,6 +72,7 @@ export default function Home() {
               professorResponsavel={item.professor_responsavel}
               categoria={item.categoria}
               descricao={item.descricao}
+              functionDelete={deleteCurso}
             />
           ))}
       </div>

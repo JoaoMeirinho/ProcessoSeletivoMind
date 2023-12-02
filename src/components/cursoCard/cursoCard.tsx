@@ -9,37 +9,48 @@ import { useState } from "react";
 //   children: ReactNode;
 // }
 
-export default function CursoCard({ id, nome, professorResponsavel, categoria, descricao, imagem  } ) {
-  const router = useRouter();
+export default function CursoCard({
+  id,
+  nome,
+  professorResponsavel,
+  categoria,
+  descricao,
+  imagem,
+  functionDelete,
+}) {
   // const [error, setError] = useState("");
-
-  const deleteCurso = async (event) => {
-    try {
-      event.preventDefault();
-      const response = await fetch("/api/curso/deleteCurso", {
-        method: "POST",
-        body: JSON.stringify({ id: id }),
-      });
-      const json = await response.json();
-      if (response.status !== 201) throw new Error(json);
-      router.push("/");
-    } catch (err) {
-      console.log(err)
-    }
-  };
   return (
     <div className={styles.card}>
       <h2 className={styles.title}>{nome}</h2>
-      <p>{descricao}</p>
-      <span>{categoria}</span>
-      <p>Professor: {professorResponsavel}</p>
-      <Link href={{
-       pathname: `/curso`,
-       query: {
-        id: id,
-       }
-      }}>Editar Curso</Link>
-      <button type="button" className="delete-button" onClick={(e) => deleteCurso(e)}>Deletar curso</button>
+      <p>
+        Descrição: <b>{descricao}</b>
+      </p>
+      <span>
+        Categoria: <b>{categoria}</b>
+      </span>
+      <p>
+        Professor: <b>{professorResponsavel}</b>
+      </p>
+      <div className={styles.option}>
+        <Link
+          className={styles.edit}
+          href={{
+            pathname: `/curso`,
+            query: {
+              id: id,
+            },
+          }}
+        >
+          Editar Curso
+        </Link>
+        <button
+          type="button"
+          className={styles.delete}
+          onClick={(e) => functionDelete(e, id)}
+        >
+          Deletar curso
+        </button>
+      </div>
     </div>
   );
 }

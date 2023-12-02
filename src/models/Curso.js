@@ -1,5 +1,6 @@
 import { Sequelize, Model } from "sequelize";
 import { connection } from "../../services/database/dbConnection";
+import multer from "multer";
 
 export default class Curso extends Model {}
 
@@ -8,12 +9,12 @@ Curso.init(
     id: {
       type: Sequelize.INTEGER,
       autoIncrement: true,
-      primaryKey: true
+      primaryKey: true,
     },
     nome: {
       type: Sequelize.STRING,
       allowNull: false,
-      validate:  {
+      validate: {
         notEmpty: {
           args: true,
           msg: "O nome do curso deve ser fornecido",
@@ -23,7 +24,7 @@ Curso.init(
     professor_responsavel: {
       type: Sequelize.STRING,
       allowNull: false,
-      validate:  {
+      validate: {
         notEmpty: {
           args: true,
           msg: "O nome de um professor deve ser fornecido",
@@ -33,7 +34,7 @@ Curso.init(
     categoria: {
       type: Sequelize.STRING,
       allowNull: false,
-      validate:  {
+      validate: {
         notEmpty: {
           args: true,
           msg: "Uma categoria deve ser fornecida",
@@ -43,7 +44,7 @@ Curso.init(
     descricao: {
       type: Sequelize.STRING,
       allowNull: false,
-      validate:  {
+      validate: {
         notEmpty: {
           args: true,
           msg: "Uma descrição deve ser fornecida",
@@ -64,7 +65,7 @@ Curso.init(
   {
     sequelize: connection,
     modelName: "Curso",
-    tableName: 'curso',
+    tableName: "curso",
   }
 );
 

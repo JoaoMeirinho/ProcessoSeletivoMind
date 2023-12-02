@@ -7,7 +7,8 @@ export default async function handler(
   res: NextApiResponse
 ) {
   try {
-    const newCurso = await createCurso(req);
+    const request = req.body;
+    const newCurso = await createCurso(request);
     const { nome, professor_responsavel, categoria, descricao, imagem } =
       newCurso;
     res
