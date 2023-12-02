@@ -8,7 +8,7 @@ export default async function handler(
 ) {
   try {
     const newUser = await cadastro(req);
-    const { nome, email, password_hash } = newUser;
+    const { nome, email, password_hash }: any = newUser;
     res.status(201).json({ nome, email, password_hash });
   } catch (err: any) {
     res.status(400).json(err.message);

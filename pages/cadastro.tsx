@@ -19,11 +19,14 @@ export default function CadastroPage() {
   const [error, setError] = useState("");
   const router = useRouter();
 
-  const handleFormEdit = (event, name) => {
-    setFormData({ ...formData, [name]: event.target.value });
+  const handleFormEdit = (event: Event, name: string) => {
+    setFormData({
+      ...formData,
+      [name]: (event.target! as HTMLInputElement).value,
+    });
   };
 
-  const handleForm = async (event) => {
+  const handleForm = async (event: React.FormEvent<HTMLFormElement>) => {
     try {
       event.preventDefault();
       const response = await fetch("/api/user/cadastro", {
@@ -33,7 +36,7 @@ export default function CadastroPage() {
       const json = await response.json();
       if (response.status !== 201) throw new Error(json);
       router.push("/login");
-    } catch (err) {
+    } catch (err: any) {
       setError(err.message);
     }
   };
@@ -47,7 +50,7 @@ export default function CadastroPage() {
             placeholder="Seu nome"
             required
             value={formData.nome}
-            onChange={(e) => {
+            onChange={(e: Event) => {
               handleFormEdit(e, "nome");
             }}
           />
@@ -56,7 +59,7 @@ export default function CadastroPage() {
             placeholder="Seu e-mail"
             required
             value={formData.email}
-            onChange={(e) => {
+            onChange={(e: Event) => {
               handleFormEdit(e, "email");
             }}
           />
@@ -65,7 +68,7 @@ export default function CadastroPage() {
             placeholder="Sua senha"
             required
             value={formData.password}
-            onChange={(e) => {
+            onChange={(e: Event) => {
               handleFormEdit(e, "password");
             }}
           />

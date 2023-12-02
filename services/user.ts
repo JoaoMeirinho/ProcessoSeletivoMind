@@ -9,7 +9,7 @@ interface cadastroBody extends loginBody {
   nome: string;
 }
 
-const SECRET = process.env.JWT_SECRET;
+const SECRET: any = process.env.JWT_SECRET;
 
 function createToken(user: any) {
   return jwt.sign({ email: user.email, nome: user.nome }, SECRET);
@@ -23,7 +23,7 @@ function readToken(token: string) {
   }
 }
 
-export function verifica(token) {
+export function verifica(token: string) {
   return readToken(token);
 }
 
@@ -42,7 +42,7 @@ export async function login(req: any) {
   if (!user.passwordIsValid(reqJson.password))
     throw new Error("Senha incorreta");
 
-  const { nome, email, password_hash } = user;
+  const { nome, email, password_hash }: any = user;
 
   const token = createToken({ nome, email, password_hash });
   return token;

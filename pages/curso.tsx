@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, ChangeEvent } from "react";
 import Link from "next/link";
 import { setCookie } from "cookies-next";
 import { useRouter } from "next/router";
@@ -49,11 +49,17 @@ export default function CursoPage() {
   console.log(query);
   console.log(id);
 
-  const handleFormEdit = (event, name) => {
-    setFormData({ ...formData, [name]: event.target.value });
+  const handleFormEdit = (
+    event: Event | ChangeEvent<HTMLSelectElement>,
+    name: string
+  ) => {
+    setFormData({
+      ...formData,
+      [name]: (event.target! as HTMLInputElement | HTMLSelectElement).value,
+    });
   };
 
-  const handleForm = async (event) => {
+  const handleForm = async (event: React.FormEvent<HTMLFormElement>) => {
     try {
       event.preventDefault();
       let response;
@@ -114,7 +120,7 @@ export default function CursoPage() {
           />
           <select
             value={formData.categoria}
-            onChange={(e) => {
+            onChange={(e: ChangeEvent<HTMLSelectElement>) => {
               handleFormEdit(e, "categoria");
             }}
             required

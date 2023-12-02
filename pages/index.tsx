@@ -30,7 +30,10 @@ export default function Home() {
     console.log("request feito");
   }, []);
 
-  const deleteCurso = async (event, id) => {
+  const deleteCurso = async (
+    event: React.FormEvent<HTMLFormElement>,
+    id: string
+  ) => {
     try {
       event.preventDefault();
       const response = await fetch("/api/curso/deleteCurso", {
@@ -53,7 +56,9 @@ export default function Home() {
         </Link>
         <SearchBar
           placeholder="Pesquisar"
-          onChange={(event) => setQuery(event.target.value)}
+          onChange={(event: Event) =>
+            setQuery((event.target! as HTMLInputElement).value)
+          }
         />
       </div>
       <div className={styles.background}>

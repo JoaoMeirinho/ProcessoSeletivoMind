@@ -3,11 +3,9 @@ import Curso from "../src/models/Curso";
 import path from "path";
 import { NextApiRequest } from "next";
 
-export async function createCurso(req: any) {
+export async function createCurso(req: any): Promise<Curso> {
   const reqJson = JSON.parse(req.body);
-
   const curso = await Curso.create(reqJson);
-  // await uploadImage(reqJson.file);
   return curso;
 }
 
