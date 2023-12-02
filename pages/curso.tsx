@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { setCookie } from "cookies-next";
 import { useRouter } from "next/router";
-import formidable from "formidable";
 
 import styles from "../styles/Login.module.css";
 
@@ -14,7 +13,7 @@ export default function CursoPage() {
   const [formData, setFormData] = useState({
     nome: "",
     professor_responsavel: "",
-    categoria: "",
+    categoria: "Marketing",
     descricao: "",
     imagem: "",
   });
@@ -57,21 +56,6 @@ export default function CursoPage() {
   const handleForm = async (event) => {
     try {
       event.preventDefault();
-      const imagem = document.querySelector("input[type=file]");
-
-      const formDataObj = new FormData();
-      // formDataObj.append("nome", formData.nome);
-      // formDataObj.append(
-      //   "professor_responsavel",
-      //   formData.professor_responsavel
-      // );
-      // formDataObj.append("categoria", formData.categoria);
-      // formDataObj.append("descricao", formData.descricao);
-      // formDataObj.append("imagem", formData.imagem);
-      formDataObj.append("file", imagem.files[0]);
-
-      console.log(imagem);
-      console.log(imagem.files[0]);
       let response;
       if (id) {
         response = await fetch("/api/curso/updateCurso", {
@@ -85,20 +69,9 @@ export default function CursoPage() {
           },
         });
       } else {
-        const uploadImage = await fetch("/api/curso/uploadImage", {
-          method: "POST",
-          body: imagem.files[0],
-        });
         response = await fetch("/api/curso/createCurso", {
           method: "POST",
-          // body: JSON.stringify({
-          //   ...formData,
-          //   file: formDataObj,
-          // }),
           body: JSON.stringify(formData),
-          // headers: {
-          //   "Content-Type": "multipart/form-data",
-          // },
         });
       }
       const json = await response.json();
@@ -112,12 +85,7 @@ export default function CursoPage() {
   return (
     <div className={styles.background}>
       <LoginCard title={id ? "Editar curso" : "Cadastrar curso"}>
-        <form
-          onSubmit={handleForm}
-          action=""
-          className={styles.form}
-          encType="multipart/form-data"
-        >
+        <form onSubmit={handleForm} action="" className={styles.form}>
           <Input
             type="text"
             placeholder="Nome do curso"
@@ -192,10 +160,3 @@ export default function CursoPage() {
     </div>
   );
 }
-
-// export async function getStaticProps(context) {
-//   console.log(context.params); // return { movieId: 'Mortal Kombat' }
-//   return {
-//     props: {}, // will be passed to the page component as props
-//   };
-// }

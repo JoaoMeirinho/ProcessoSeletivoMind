@@ -6,7 +6,7 @@ interface props {
   props?: any;
 }
 
-export default function Button({ children, ...props }: props) {
+export default function Button({ children, ...props }: any) {
   return (
     <button className={styles.button} {...props}>
       {children}
