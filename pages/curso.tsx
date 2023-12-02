@@ -77,7 +77,7 @@ export default function CursoPage() {
       const json = await response.json();
       if (response.status !== 201) throw new Error(json);
       router.push("/");
-    } catch (err) {
+    } catch (err: any) {
       setError(err.message);
     }
   };
@@ -90,7 +90,7 @@ export default function CursoPage() {
             type="text"
             placeholder="Nome do curso"
             value={formData.nome}
-            onChange={(e) => {
+            onChange={(e: Event) => {
               handleFormEdit(e, "nome");
             }}
           />
@@ -99,7 +99,7 @@ export default function CursoPage() {
             placeholder="Professor responsável pelo curso"
             required
             value={formData.professor_responsavel}
-            onChange={(e) => {
+            onChange={(e: Event) => {
               handleFormEdit(e, "professor_responsavel");
             }}
           />
@@ -108,7 +108,7 @@ export default function CursoPage() {
             placeholder="Uma breve descrição do curso"
             required
             value={formData.descricao}
-            onChange={(e) => {
+            onChange={(e: Event) => {
               handleFormEdit(e, "descricao");
             }}
           />
@@ -128,7 +128,7 @@ export default function CursoPage() {
             style={{ display: "none" }}
             type="file"
             placeholder="Selecione uma imagem que represente o curso"
-            onChange={(e) => {
+            onChange={(e: Event) => {
               handleFormEdit(e, "imagem");
             }}
           />
@@ -147,7 +147,9 @@ export default function CursoPage() {
             type="button"
             className="fileButton"
             onClick={(e) => {
-              document.querySelector("input[type=file]").click();
+              (
+                document.querySelector("input[type=file]")! as HTMLElement
+              ).click();
             }}
           >
             Escolher Imagem

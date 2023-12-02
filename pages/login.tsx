@@ -18,11 +18,14 @@ export default function LoginPage() {
   const [error, setError] = useState("");
   const router = useRouter();
 
-  const handleFormEdit = (event, name) => {
-    setFormData({ ...formData, [name]: event.target.value });
+  const handleFormEdit = (event: Event, name: any) => {
+    setFormData({
+      ...formData,
+      [name]: (event.target! as HTMLInputElement).value,
+    });
   };
 
-  const handleForm = async (event) => {
+  const handleForm = async (event: React.FormEvent<HTMLFormElement>) => {
     try {
       event.preventDefault();
       const response = await fetch("/api/user/login", {
@@ -33,7 +36,7 @@ export default function LoginPage() {
       if (response.status !== 200) throw new Error(json);
       setCookie("authorization", json);
       router.push("/");
-    } catch (err) {
+    } catch (err: any) {
       setError(err.message);
     }
   };
@@ -47,7 +50,7 @@ export default function LoginPage() {
             placeholder="Seu e-mail"
             required
             value={formData.email}
-            onChange={(e) => {
+            onChange={(e: Event) => {
               handleFormEdit(e, "email");
             }}
           />
@@ -56,7 +59,7 @@ export default function LoginPage() {
             placeholder="Sua senha"
             required
             value={formData.password}
-            onChange={(e) => {
+            onChange={(e: Event) => {
               handleFormEdit(e, "password");
             }}
           />
