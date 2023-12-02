@@ -4,10 +4,14 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
-// interface props {
-//   title: string;
-//   children: ReactNode;
-// }
+interface props {
+  id: string;
+  nome: string;
+  professorResponsavel: string;
+  categoria: string;
+  descricao: string;
+  functionDelete: Function;
+}
 
 export default function CursoCard({
   id,
@@ -15,9 +19,8 @@ export default function CursoCard({
   professorResponsavel,
   categoria,
   descricao,
-  imagem,
   functionDelete,
-}) {
+}: props) {
   // const [error, setError] = useState("");
   return (
     <div className={styles.card}>

@@ -9,6 +9,7 @@ import Input from "../src/components/input/input";
 import SearchBar from "../src/components/searchBar/searchBar";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import Curso from "../src/models/Curso";
 export default function Home() {
   const [cursoData, setCursoData] = useState([]);
   const router = useRouter();
@@ -49,11 +50,12 @@ export default function Home() {
   };
 
   return (
-    <>
+    <div className={styles.backgound}>
       <div className={styles.nav}>
         <Link className={styles.link} href="/curso">
           Adicionar curso
         </Link>
+        <h1 className={styles.title}>Seja Bem-vindo(a)!</h1>
         <SearchBar
           placeholder="Pesquisar"
           onChange={(event: Event) =>
@@ -61,36 +63,41 @@ export default function Home() {
           }
         />
       </div>
+      <h1 className={styles.title}>Cursos cadastrados</h1>
       <div className={styles.background}>
         {cursoData
-          .filter((curso) => {
+          .filter((curso: any) => {
             if (query === "") {
               return curso;
             } else if (curso.nome.toLowerCase().includes(query.toLowerCase())) {
               return curso;
             }
           })
-          .map((item) => (
-            <CursoCard
-              id={item.id}
-              nome={item.nome}
-              professorResponsavel={item.professor_responsavel}
-              categoria={item.categoria}
-              descricao={item.descricao}
-              functionDelete={deleteCurso}
-            />
-          ))}
+          .map((item: any, index: any, array: any[]) => {
+            return (
+              <>
+                <CursoCard
+                  id={item.id}
+                  nome={item.nome}
+                  professorResponsavel={item.professor_responsavel}
+                  categoria={item.categoria}
+                  descricao={item.descricao}
+                  functionDelete={deleteCurso}
+                />
+              </>
+            );
+          })}
       </div>
-    </>
+    </div>
   );
 }
 
-export const getServerSideProps = async ({ req, res }) => {
+export const getServerSideProps = async ({ req, res }: any) => {
   try {
     const token = getCookie("authorization", { req, res });
     if (!token) throw new Error("Token inválido");
 
-    verifica(token);
+    verifica(token as string);
 
     return {
       props: {},

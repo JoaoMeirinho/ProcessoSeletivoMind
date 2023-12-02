@@ -65,7 +65,10 @@ export default function LoginPage() {
           />
           <Button>Entrar</Button>
           {error && <p className={styles.error}>{error}</p>}
-          <Link href="/cadastro"> Ainda não possui conta?</Link>
+          <Link className={styles.account} href="/cadastro">
+            {" "}
+            Ainda não possui conta?
+          </Link>
         </form>
       </LoginCard>
     </div>

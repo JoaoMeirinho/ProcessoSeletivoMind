@@ -53,13 +53,7 @@ Curso.init(
     },
     imagem: {
       type: Sequelize.STRING,
-      allowNull: false,
-      validate: {
-        notEmpty: {
-          args: true,
-          msg: "Uma imagem deve ser fornecida",
-        },
-      },
+      allowNull: true,
     },
   },
   {

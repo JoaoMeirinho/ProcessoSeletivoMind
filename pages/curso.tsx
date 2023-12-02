@@ -1,7 +1,8 @@
 import { useState, useEffect, ChangeEvent } from "react";
-import Link from "next/link";
+import { getCookie } from "cookies-next";
 import { setCookie } from "cookies-next";
 import { useRouter } from "next/router";
+import { verifica } from "../services/user";
 
 import styles from "../styles/Login.module.css";
 
@@ -92,15 +93,20 @@ export default function CursoPage() {
     <div className={styles.background}>
       <LoginCard title={id ? "Editar curso" : "Cadastrar curso"}>
         <form onSubmit={handleForm} action="" className={styles.form}>
+          <label htmlFor="nome">Nome do curso</label>
           <Input
+            name="nome"
             type="text"
+            required
             placeholder="Nome do curso"
             value={formData.nome}
             onChange={(e: Event) => {
               handleFormEdit(e, "nome");
             }}
           />
+          <label htmlFor="professor">Professor Responsável</label>
           <Input
+            name="professor"
             type="text"
             placeholder="Professor responsável pelo curso"
             required
@@ -109,7 +115,9 @@ export default function CursoPage() {
               handleFormEdit(e, "professor_responsavel");
             }}
           />
+          <label htmlFor="descricao">Descrição do curso</label>
           <Input
+            name="descricao"
             type="text"
             placeholder="Uma breve descrição do curso"
             required
@@ -118,12 +126,15 @@ export default function CursoPage() {
               handleFormEdit(e, "descricao");
             }}
           />
+          <label htmlFor="categoria">Categoria</label>
           <select
+            name="categoria"
             value={formData.categoria}
             onChange={(e: ChangeEvent<HTMLSelectElement>) => {
               handleFormEdit(e, "categoria");
             }}
             required
+            className={styles.select}
           >
             <option value="Marketing">Marketing</option>
             <option value="TI">TI</option>
@@ -139,7 +150,7 @@ export default function CursoPage() {
             }}
           />
 
-          <Input
+          {/* <Input
             type="text"
             disabled
             required
@@ -147,9 +158,9 @@ export default function CursoPage() {
             // onChange={(e) => {
             //   handleFormEdit(e, "imagem");
             // }}
-          />
+          /> */}
 
-          <button
+          {/* <button
             type="button"
             className="fileButton"
             onClick={(e) => {
@@ -159,7 +170,7 @@ export default function CursoPage() {
             }}
           >
             Escolher Imagem
-          </button>
+          </button> */}
 
           <Button type="submit">{id ? "Editar curso" : "Criar curso"}</Button>
           {error && <p className={styles.error}>{error}</p>}
@@ -168,3 +179,24 @@ export default function CursoPage() {
     </div>
   );
 }
+
+export const getServerSideProps = async ({ req, res }: any) => {
+  try {
+    const token = getCookie("authorization", { req, res });
+    if (!token) throw new Error("Token inválido");
+
+    verifica(token as string);
+
+    return {
+      props: {},
+    };
+  } catch (err) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/login",
+      },
+      props: {},
+    };
+  }
+};
