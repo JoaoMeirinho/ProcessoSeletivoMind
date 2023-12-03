@@ -11,13 +11,19 @@ export default class Usuario extends Model {
 Usuario.init(
   {
     id: {
-      type: Sequelize.NUMERIC,
+      type: Sequelize.INTEGER,
       autoIncrement: true,
-      primaryKey: true
+      primaryKey: true,
     },
     nome: {
       type: Sequelize.STRING,
       allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: "Um nome deve ser fornecida",
+        },
+      },
     },
     email: {
       type: Sequelize.STRING,
@@ -33,23 +39,31 @@ Usuario.init(
     },
     password_hash: {
       type: Sequelize.STRING,
+      allowNull: false,
     },
     password: {
       type: Sequelize.VIRTUAL,
       allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: "Uma senha deve ser fornecida",
+        },
+      },
     },
   },
   {
     sequelize: connection,
     modelName: "Usuario",
-    tableName: 'usuario',
+    tableName: "usuario",
   }
 );
 
-Usuario.beforeSave(async (user) => {
+Usuario.beforeValidate(async (user) => {
   if (user.password) {
     user.password_hash = await bcryptjs.hash(user.password, 8);
   }
 });
 
+// Usuario.beforeValidate
 await Usuario.sync();

@@ -2,6 +2,10 @@
 
 Aqui você poderá encontrar toda a documentação necessária para configurar e inicializar o projeto.
 
+# Sobre
+
+O projeto é um sistema de gerenciamento de cursos, podendo criar, visualizar, editar e excluír cursos. O sistema também conta com um sistema de login e cadastro para professores.
+
 # Tecnologias utilizadas
 
 - NodeJS: v18.14.2
@@ -26,7 +30,7 @@ Para maior segurança, este projeto utiliza variáveis de ambiente para executar
 
     BCRYPT_HASH=8
 
-    DATABASE='MindConsul'
+    DATABASE=(nome do banco de dados)
 
     DB_USER=(seu usuário do banco de dados)
 
@@ -38,7 +42,7 @@ Para maior segurança, este projeto utiliza variáveis de ambiente para executar
 
 ## Banco de Dados
 
-Por padrão, se o arquivo **.env.local** estiver devidamente configurado, o sistema irá sincronizar o banco de dados automaticamente.
+Por padrão, se o arquivo **.env.local** estiver devidamente configurado, o sistema irá sincronizar as tabelas do banco de dados automaticamente. Será necessário apenas que o banco de dados já exista.
 
 Caso ocorra algum erro ao gerar as tabelas, faça o dump do banco de dados com o arquivo **dump-MindConsul-202312022054.sql**, que se encontra na raiz do projeto.
 
