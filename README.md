@@ -44,7 +44,7 @@ Para maior segurança, este projeto utiliza variáveis de ambiente para executar
 
 Por padrão, se o arquivo **.env.local** estiver devidamente configurado, o sistema irá sincronizar as tabelas do banco de dados automaticamente. Será necessário apenas que o banco de dados já exista.
 
-Caso ocorra algum erro ao gerar as tabelas, faça o dump do banco de dados com o arquivo **dump-MindConsul-202312022054.sql**, que se encontra na raiz do projeto.
+Caso ocorra algum erro ao gerar as tabelas, faça o dump do banco de dados com o arquivo **dump-TesteConsul.sql**, que se encontra na raiz do projeto.
 
 # Hora de rodar o projeto
 
