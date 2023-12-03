@@ -1,6 +1,5 @@
 import { useState } from "react";
 import Link from "next/link";
-import { setCookie } from "cookies-next";
 import { useRouter } from "next/router";
 
 import styles from "../styles/Login.module.css";

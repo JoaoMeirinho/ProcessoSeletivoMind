@@ -1,8 +1,5 @@
-import { ReactNode } from "react";
 import styles from "./cursoCard.module.css";
 import Link from "next/link";
-import { useRouter } from "next/router";
-import { useState } from "react";
 
 interface props {
   id: string;
@@ -21,7 +18,6 @@ export default function CursoCard({
   descricao,
   functionDelete,
 }: props) {
-  // const [error, setError] = useState("");
   return (
     <div className={styles.card}>
       <h2 className={styles.title}>{nome}</h2>

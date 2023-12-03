@@ -1,4 +1,3 @@
-import Curso from "../../../src/models/Curso";
 import { createCurso } from "../../../services/curso";
 import { NextApiRequest, NextApiResponse } from "next";
 

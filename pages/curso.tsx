@@ -1,6 +1,5 @@
 import { useState, useEffect, ChangeEvent } from "react";
 import { getCookie } from "cookies-next";
-import { setCookie } from "cookies-next";
 import { useRouter } from "next/router";
 import { verifica } from "../services/user";
 
@@ -46,9 +45,6 @@ export default function CursoPage() {
     })();
     console.log("request feito");
   }, [router.isReady]);
-
-  console.log(query);
-  console.log(id);
 
   const handleFormEdit = (
     event: Event | ChangeEvent<HTMLSelectElement>,
@@ -149,28 +145,6 @@ export default function CursoPage() {
               handleFormEdit(e, "imagem");
             }}
           />
-
-          {/* <Input
-            type="text"
-            disabled
-            required
-            value={formData.imagem || "Nenhum arquivo foi selecionado"}
-            // onChange={(e) => {
-            //   handleFormEdit(e, "imagem");
-            // }}
-          /> */}
-
-          {/* <button
-            type="button"
-            className="fileButton"
-            onClick={(e) => {
-              (
-                document.querySelector("input[type=file]")! as HTMLElement
-              ).click();
-            }}
-          >
-            Escolher Imagem
-          </button> */}
 
           <Button type="submit">{id ? "Editar curso" : "Criar curso"}</Button>
           {error && <p className={styles.error}>{error}</p>}

@@ -1,4 +1,3 @@
-import Usuario from "../../../src/models/Usuario";
 import { cadastro } from "../../../services/user";
 import { NextApiRequest, NextApiResponse } from "next";
 

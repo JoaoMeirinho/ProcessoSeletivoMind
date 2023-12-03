@@ -65,5 +65,4 @@ Usuario.beforeValidate(async (user) => {
   }
 });
 
-// Usuario.beforeValidate
 await Usuario.sync();

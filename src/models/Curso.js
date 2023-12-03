@@ -1,6 +1,5 @@
 import { Sequelize, Model } from "sequelize";
 import { connection } from "../../services/database/dbConnection";
-import multer from "multer";
 
 export default class Curso extends Model {}
 

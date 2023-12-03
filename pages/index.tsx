@@ -5,11 +5,9 @@ import { verifica } from "../services/user";
 import styles from "../styles/Login.module.css";
 
 import CursoCard from "../src/components/cursoCard/cursoCard";
-import Input from "../src/components/input/input";
 import SearchBar from "../src/components/searchBar/searchBar";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import Curso from "../src/models/Curso";
 export default function Home() {
   const [cursoData, setCursoData] = useState([]);
   const router = useRouter();
@@ -20,7 +18,6 @@ export default function Home() {
       method: "GET",
     });
     const cursos = await res.json();
-    // console.log();
     setCursoData(cursos);
   };
 
